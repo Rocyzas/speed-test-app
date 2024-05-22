@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
-function DifficultySelection() {
-  const [difficulty, setDifficulty] = useState(null);
-  const [prompt, setPrompt] = useState(null);
+function DifficultySelection({ setPrompt }) {
+  const [difficulty, setDifficulty] = useState('easy');
 
   const handleDifficultyChange = (event) => {
     setDifficulty(event.target.value);
   };
 
-  const fetchPrompt = async () => {
-    if (difficulty) {
-      const response = await fetch(`/api/difficulty/${difficulty}`);
+  const fetchPrompt = useCallback(async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data = await response.json();
       setPrompt(data.prompt);
+    } catch (error) {
+      console.error('Fetch error:', error);
+      setPrompt('Error fetching prompt.');
     }
-  };
+  }, [difficulty, setPrompt]);
 
   useEffect(() => {
     fetchPrompt();
-  }, [difficulty]);
+  }, [fetchPrompt]);
 
   return (
     <div>
@@ -28,8 +33,6 @@ function DifficultySelection() {
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
-      <br />
-      {prompt && <p>Prompt: {prompt}</p>}
     </div>
   );
 }

@@ -1,22 +1,18 @@
+// src/App.js
 import React, { useState } from 'react';
+import TextDisplay from './components/TextDisplay';
+import DifficultySelection from './components/DifficultySelection';
+import UserInputForm from './components/UserInputForm';
 
 function App() {
-  const [difficulty, setDifficulty] = useState('easy');
-
-  const fetchPrompt = async () => {
-    const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`);
-    const data = await response.json();
-    console.log(data.prompt);
-  };
+  const [prompt, setPrompt] = useState('');
 
   return (
     <div>
-      <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-      <button onClick={fetchPrompt}>Get Prompt</button>
+      <DifficultySelection setPrompt={setPrompt} />
+      <TextDisplay text={prompt} />
+      <UserInputForm />
+      
     </div>
   );
 }
