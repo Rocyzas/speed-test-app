@@ -1,15 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from processRequests import ProcessUserInput
+from processRequests import ProcessUserInput, ManageDifficultyText
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/api/difficulty/<difficulty>', methods=['GET'])
 def get_difficulty(difficulty):
-  prompt = "This is a sample prompt for {} difficulty.".format(difficulty)
-  return jsonify({'prompt': prompt})
+  return ManageDifficultyText(difficulty)
 
 
 @app.route('/api/userInput', methods=['POST'])

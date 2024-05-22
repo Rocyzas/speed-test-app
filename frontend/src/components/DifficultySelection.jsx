@@ -14,6 +14,7 @@ function DifficultySelection({ setPrompt }) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log(data);
       setPrompt(data.prompt);
     } catch (error) {
       console.error('Fetch error:', error);
