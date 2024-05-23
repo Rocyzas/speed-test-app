@@ -3,13 +3,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 function DifficultySelection({ setPrompt }) {
   const [difficulty, setDifficulty] = useState('easy');
 
-  const handleDifficultyChange = (event) => {
+  const handleDifficultyChange = async (event) => {
     setDifficulty(event.target.value);
+    await fetchPrompt();
   };
+  
 
   const fetchPrompt = useCallback(async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`);
+      const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`, {credentials: 'include'});
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -21,6 +23,7 @@ function DifficultySelection({ setPrompt }) {
       setPrompt('Error fetching prompt.');
     }
   }, [difficulty, setPrompt]);
+  
 
   useEffect(() => {
     fetchPrompt();
