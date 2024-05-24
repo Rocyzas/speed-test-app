@@ -21,7 +21,7 @@ run as `npm start`
 ------------------------------------------------
 
 Todo:
-- Compare words and then display count of correct ones
-- route to results page
+- On restart keep session same
 - Set timer during which user is allowed to submit code
-- add unit tests
+- Return %
+- Unit tests

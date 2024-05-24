@@ -1,0 +1,11 @@
+.difficulty-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.difficulty-buttons {
+  display: flex;
+  gap: 10px;
+}

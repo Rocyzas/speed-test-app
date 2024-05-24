@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import './DifficultySelection.css';
 
 function DifficultySelection({ setPrompt }) {
   const [difficulty, setDifficulty] = useState('easy');
@@ -11,7 +12,7 @@ function DifficultySelection({ setPrompt }) {
   const fetchPrompt = useCallback(async (difficulty) => {
     try {
       const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`, {
-        credentials: 'include' // Include cookies with the request
+        credentials: 'include'
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -30,11 +31,13 @@ function DifficultySelection({ setPrompt }) {
   }, [fetchPrompt, difficulty]);
 
   return (
-    <div>
+    <div className="difficulty-selection">
       <h2>Select Difficulty:</h2>
-      <button onClick={() => handleDifficultyChange('easy')}>Easy</button>
-      <button onClick={() => handleDifficultyChange('medium')}>Medium</button>
-      <button onClick={() => handleDifficultyChange('hard')}>Hard</button>
+      <div className="difficulty-buttons">
+        <button onClick={() => handleDifficultyChange('easy')}>Easy</button>
+        <button onClick={() => handleDifficultyChange('medium')}>Medium</button>
+        <button onClick={() => handleDifficultyChange('hard')}>Hard</button>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// TextDisplay.jsx
 import React from 'react';
 
 const TextDisplay = ({ text }) => {
