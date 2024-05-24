@@ -3,15 +3,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 function DifficultySelection({ setPrompt }) {
   const [difficulty, setDifficulty] = useState('easy');
 
-  const handleDifficultyChange = async (event) => {
-    setDifficulty(event.target.value);
-    await fetchPrompt();
+  const handleDifficultyChange = async (newDifficulty) => {
+    setDifficulty(newDifficulty);
+    await fetchPrompt(newDifficulty);
   };
-  
 
-  const fetchPrompt = useCallback(async () => {
+  const fetchPrompt = useCallback(async (difficulty) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`, {credentials: 'include'});
+      const response = await fetch(`http://127.0.0.1:5000/api/difficulty/${difficulty}`, {
+        credentials: 'include' // Include cookies with the request
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -22,21 +23,18 @@ function DifficultySelection({ setPrompt }) {
       console.error('Fetch error:', error);
       setPrompt('Error fetching prompt.');
     }
-  }, [difficulty, setPrompt]);
-  
+  }, [setPrompt]);
 
   useEffect(() => {
-    fetchPrompt();
-  }, [fetchPrompt]);
+    fetchPrompt(difficulty);
+  }, [fetchPrompt, difficulty]);
 
   return (
     <div>
       <h2>Select Difficulty:</h2>
-      <select value={difficulty} onChange={handleDifficultyChange}>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
+      <button onClick={() => handleDifficultyChange('easy')}>Easy</button>
+      <button onClick={() => handleDifficultyChange('medium')}>Medium</button>
+      <button onClick={() => handleDifficultyChange('hard')}>Hard</button>
     </div>
   );
 }

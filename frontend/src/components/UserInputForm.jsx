@@ -18,6 +18,7 @@ function UserInputForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ input: userInput }), // Include user input in the request body
+        credentials: 'include',
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');

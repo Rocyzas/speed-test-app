@@ -5,7 +5,9 @@ def ProcessUserInput(userInput, prompt):
         counter = len(userInput.split())
         is_match = (userInput.strip() == prompt.strip())
 
-        print('SUCECUECUCE')
+        if is_match:
+            print('STRINGS ARE THE SAME')
+
         return jsonify({
             'user_input': userInput + ' - ' + str(counter),
             'prompt': prompt,
