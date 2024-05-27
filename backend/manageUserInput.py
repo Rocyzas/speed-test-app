@@ -1,11 +1,4 @@
 from flask import jsonify
-import nltk
-import random
-
-if not nltk.corpus.words.words():
-    nltk.download('words')
-
-from nltk.corpus import words
 
 def ProcessUserInput(userInput, prompt):
     try:
@@ -30,23 +23,3 @@ def ProcessUserInput(userInput, prompt):
     
     except Exception as e:
         return jsonify({'error': 'An error occurred',}), 500
-
-def ManageDifficultyText(difficulty):
-
-
-    prompts = {
-        'easy': getEasyText(50),
-        'medium': 'This is a medium text.',
-        'hard': 'This is a hard text.'
-    }
-    
-    if difficulty in prompts:
-        return jsonify({'prompt': prompts[difficulty]})
-    else:
-        return jsonify({'error': 'Invalid difficulty level'}), 400
-
-def getEasyText(n):
-    english_words = words.words()
-    easy_words = [word for word in english_words if len(word) <= 5]
-    random_word_list = random.sample(easy_words, n)
-    return ' '.join(random_word_list)

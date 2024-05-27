@@ -12,6 +12,11 @@ run redis (macOS) - `brew services start redis` (verify if running with `redis-c
 
 (locally redis conf at /opt/homebrew/etc/redis.conf)
 
+OpenAI:
+OPENAI_API_KEY is stored in .env locally  
+
+
+
 ### Frontend setup
 `npm install`  
 run as `npm start`  
@@ -22,6 +27,7 @@ run as `npm start`
 
 Todo:
 - On restart keep session same
-- Set timer during which user is allowed to submit code
-- Return %
 - Unit tests
+- Session testing
+- make api response quicker
+- make user ask for topic not only e/m/h
